@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         }
 
         // Firebaseのinitializeが完了するのを待つ間に表示するWidget
-        // return Loading();
+        return Container(color: Colors.blue);
       },
     );
   }
@@ -107,6 +107,7 @@ class _MyHomeAppState extends State<MyHomeApp> {
             stream:
                 FirebaseFirestore.instance.collection("MyTodos").snapshots(),
             builder: (context, snapshots) {
+              if (snapshots.data == null) return CircularProgressIndicator();
               return ListView.builder(
                 shrinkWrap: true,
                 itemCount: snapshots.data.documents.length,
